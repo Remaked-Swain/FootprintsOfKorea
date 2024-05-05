@@ -24,6 +24,7 @@
 		04B993FB2BE79DE900E9D68D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		04B993FE2BE79DE900E9D68D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		04B994002BE79DE900E9D68D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04B994062BE7A0EA00E9D68D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +41,7 @@
 		04B993E62BE79DE900E9D68D = {
 			isa = PBXGroup;
 			children = (
+				04B994062BE7A0EA00E9D68D /* README.md */,
 				04B993F12BE79DE900E9D68D /* FootprintsOfKorea */,
 				04B993F02BE79DE900E9D68D /* Products */,
 			);
