@@ -13,6 +13,12 @@
 		04B993FA2BE79DE900E9D68D /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 04B993F92BE79DE900E9D68D /* Base */; };
 		04B993FC2BE79DE900E9D68D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04B993FB2BE79DE900E9D68D /* Assets.xcassets */; };
 		04B993FF2BE79DE900E9D68D /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 04B993FE2BE79DE900E9D68D /* Base */; };
+		04B994132BE7CBB000E9D68D /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B994122BE7CBB000E9D68D /* URLSession.swift */; };
+		04B994152BE7CBF400E9D68D /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B994142BE7CBF400E9D68D /* Bundle.swift */; };
+		04B994172BE7CC4F00E9D68D /* APIKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04B994162BE7CC4F00E9D68D /* APIKey.plist */; };
+		04B994192BE7CE9200E9D68D /* NetworkSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B994182BE7CE9200E9D68D /* NetworkSessionManager.swift */; };
+		04B9941B2BE7CFCA00E9D68D /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B9941A2BE7CFCA00E9D68D /* NetworkService.swift */; };
+		04B9941D2BE7D18B00E9D68D /* JSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B9941C2BE7D18B00E9D68D /* JSONDecoder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +31,12 @@
 		04B993FE2BE79DE900E9D68D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		04B994002BE79DE900E9D68D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04B994062BE7A0EA00E9D68D /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		04B994122BE7CBB000E9D68D /* URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.swift; sourceTree = "<group>"; };
+		04B994142BE7CBF400E9D68D /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
+		04B994162BE7CC4F00E9D68D /* APIKey.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = APIKey.plist; sourceTree = "<group>"; };
+		04B994182BE7CE9200E9D68D /* NetworkSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSessionManager.swift; sourceTree = "<group>"; };
+		04B9941A2BE7CFCA00E9D68D /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		04B9941C2BE7D18B00E9D68D /* JSONDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecoder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +82,7 @@
 		04B994072BE7CA1300E9D68D /* Infrastructure */ = {
 			isa = PBXGroup;
 			children = (
+				04B9940D2BE7CB3400E9D68D /* Network */,
 			);
 			path = Infrastructure;
 			sourceTree = "<group>";
@@ -107,6 +120,51 @@
 				04B993F42BE79DE900E9D68D /* SceneDelegate.swift */,
 			);
 			path = Application;
+			sourceTree = "<group>";
+		};
+		04B9940D2BE7CB3400E9D68D /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				04B9940E2BE7CB6C00E9D68D /* Entities */,
+				04B9940F2BE7CB7100E9D68D /* Extensions */,
+				04B994102BE7CB7700E9D68D /* NetworkService */,
+				04B994112BE7CB7D00E9D68D /* NetworkSessionManager */,
+				04B994162BE7CC4F00E9D68D /* APIKey.plist */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		04B9940E2BE7CB6C00E9D68D /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		04B9940F2BE7CB7100E9D68D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				04B994122BE7CBB000E9D68D /* URLSession.swift */,
+				04B994142BE7CBF400E9D68D /* Bundle.swift */,
+				04B9941C2BE7D18B00E9D68D /* JSONDecoder.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		04B994102BE7CB7700E9D68D /* NetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				04B9941A2BE7CFCA00E9D68D /* NetworkService.swift */,
+			);
+			path = NetworkService;
+			sourceTree = "<group>";
+		};
+		04B994112BE7CB7D00E9D68D /* NetworkSessionManager */ = {
+			isa = PBXGroup;
+			children = (
+				04B994182BE7CE9200E9D68D /* NetworkSessionManager.swift */,
+			);
+			path = NetworkSessionManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -168,6 +226,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				04B993FC2BE79DE900E9D68D /* Assets.xcassets in Resources */,
+				04B994172BE7CC4F00E9D68D /* APIKey.plist in Resources */,
 				04B993FF2BE79DE900E9D68D /* Base in Resources */,
 				04B993FA2BE79DE900E9D68D /* Base in Resources */,
 			);
@@ -182,7 +241,12 @@
 			files = (
 				04B993F72BE79DE900E9D68D /* ViewController.swift in Sources */,
 				04B993F32BE79DE900E9D68D /* AppDelegate.swift in Sources */,
+				04B994132BE7CBB000E9D68D /* URLSession.swift in Sources */,
+				04B994192BE7CE9200E9D68D /* NetworkSessionManager.swift in Sources */,
+				04B9941D2BE7D18B00E9D68D /* JSONDecoder.swift in Sources */,
+				04B994152BE7CBF400E9D68D /* Bundle.swift in Sources */,
 				04B993F52BE79DE900E9D68D /* SceneDelegate.swift in Sources */,
+				04B9941B2BE7CFCA00E9D68D /* NetworkService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
