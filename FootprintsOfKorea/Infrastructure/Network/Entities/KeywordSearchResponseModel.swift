@@ -1,6 +1,6 @@
 import Foundation
 
-struct KeyworkSearchReponseModel: Decodable {
+struct KeywordSearchReponseModel: Decodable {
     let response: Response
 }
 
