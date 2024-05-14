@@ -7,10 +7,6 @@
 
 import Foundation
 
-protocol Requestable {
-    func urlRequest() -> URLRequest?
-}
-
 protocol NetworkService {
     func request<T: Decodable>(query: Requestable, for type: T.Type) async throws -> T
 }
