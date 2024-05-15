@@ -48,7 +48,7 @@ enum ContentArrangeType {
 }
 
 enum Endpoint {
-    case searchKeyword(osType: OSType, arrangeType: ContentArrangeType, keyword: String, key: String)
+    case searchKeyword(osType: OSType, arrangeType: ContentArrangeType, keyword: String)
     
     // MARK: Properties
     static let propertyListFileName: String = "APIKey"
@@ -67,20 +67,25 @@ enum Endpoint {
     
     var path: String { "/B551011/KorService1/searchKeyword1" }
     
+    var apiKey: String? {
+        guard let apiKey = Bundle.main.korServiceAPIKey else { return nil }
+        return apiKey
+    }
+    
     var queryItems: [URLQueryItem] {
         switch self {
-        case .searchKeyword(let osType, let arrangeType, let keyword, let key):
+        case .searchKeyword(let osType, let arrangeType, let keyword):
             return makeQueryItems(queries:
                                     ("MobileOS", osType.value),
                                   ("MobileApp", Endpoint.appName),
                                   ("_type", "json"),
                                   ("arrange", arrangeType.value),
                                   ("keyword", keyword),
-                                  ("serviceKey", key))
+                                  ("ServiceKey", apiKey))
         }
     }
     
-    private func makeQueryItems(queries: (key: String, value: String)...) -> [URLQueryItem] {
+    private func makeQueryItems(queries: (key: String, value: String?)...) -> [URLQueryItem] {
         return queries.map { URLQueryItem(name: $0.key, value: $0.value) }
     }
 }
@@ -95,7 +100,6 @@ extension Endpoint: Requestable {
         components.queryItems = queryItems
         
         guard let fullURL = components.url else { return nil }
-        print(fullURL)
         var request = URLRequest(url: fullURL)
         request.httpMethod = httpMethod
         return request
