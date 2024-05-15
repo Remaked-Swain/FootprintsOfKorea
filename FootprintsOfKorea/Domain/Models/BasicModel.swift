@@ -1,8 +1,5 @@
-//
-//  BasicModel.swift
-//  FootprintsOfKorea
-//
-//  Created by Swain Yun on 5/15/24.
-//
-
 import Foundation
+
+struct BasicModel {
+    let address, primaryImage, telephoneNumber, title: String
+}
