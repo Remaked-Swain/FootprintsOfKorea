@@ -6,7 +6,6 @@
 //
 
 import Foundation
-
 import RxSwift
 
 final class SearchKeywordViewModel {
@@ -29,10 +28,8 @@ final class SearchKeywordViewModel {
             
             Task {
                 do {
-                    let data: KeywordSearchReponseModel = try await self.networkSerVice.request(
-                        query: query,
-                        for: KeywordSearchReponseModel.self
-                    )
+                    let data: KeywordSearchReponseModel = try await self.networkSerVice.request(query: query,
+                                                                                                for: KeywordSearchReponseModel.self)
                     
                     obsever.onNext(data)
                     obsever.onCompleted()
