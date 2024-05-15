@@ -65,7 +65,7 @@ enum Endpoint {
     
     var host: String { "apis.data.go.kr" }
     
-    var path: String { "B551011/KorService1/searchKeyword1?" }
+    var path: String { "/B551011/KorService1/searchKeyword1" }
     
     var queryItems: [URLQueryItem] {
         switch self {
@@ -75,7 +75,7 @@ enum Endpoint {
                                   ("MobileApp", Endpoint.appName),
                                   ("_type", "json"),
                                   ("arrange", arrangeType.value),
-                                  ("keyword", key),
+                                  ("keyword", keyword),
                                   ("serviceKey", key))
         }
     }
@@ -95,6 +95,7 @@ extension Endpoint: Requestable {
         components.queryItems = queryItems
         
         guard let fullURL = components.url else { return nil }
+        print(fullURL)
         var request = URLRequest(url: fullURL)
         request.httpMethod = httpMethod
         return request
