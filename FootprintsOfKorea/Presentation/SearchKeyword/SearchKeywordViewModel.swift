@@ -8,36 +8,21 @@
 import Foundation
 import RxSwift
 
-final class SearchKeywordViewModel {
-    private let networkSerVice: NetworkService
+protocol SearchKeywordViewModel {
+    func fetchData(_ keyword: String) -> Observable<[BasicModel]>
+}
+
+final class DefaultSearchKeywordViewModel {
+    private let searchByKeywordUseCase: SearchByKeywordUseCase
     
-    init(networkSerVice: NetworkService) {
-        self.networkSerVice = networkSerVice
+    init(searchByKeywordUseCase: SearchByKeywordUseCase) {
+        self.searchByKeywordUseCase = searchByKeywordUseCase
     }
-    
-    func fetchData(_ keyword: String) -> Observable<KeywordSearchReponseModel> {
-        let query = Endpoint.searchKeyword(
-            osType: .ios,
-            arrangeType: .byModifiedTime,
-            keyword: keyword,
-            key: ""
-        )
-        
-        return Observable.create { [weak self] obsever in
-            guard let self = self else { return Disposables.create() }
-            
-            Task {
-                do {
-                    let data: KeywordSearchReponseModel = try await self.networkSerVice.request(query: query,
-                                                                                                for: KeywordSearchReponseModel.self)
-                    
-                    obsever.onNext(data)
-                    obsever.onCompleted()
-                } catch {
-                    obsever.onError(error)
-                }
-            }
-            return Disposables.create()
-        }
+}
+
+// MARK: SearchKeywordViewModel Confirmation
+extension DefaultSearchKeywordViewModel: SearchKeywordViewModel {
+    func fetchData(_ keyword: String) -> Observable<[BasicModel]> {
+        return searchByKeywordUseCase.search(by: keyword)
     }
 }
