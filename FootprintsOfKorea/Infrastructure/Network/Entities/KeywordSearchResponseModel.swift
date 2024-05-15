@@ -1,6 +1,6 @@
 import Foundation
 
-struct KeywordSearchReponseModel: Decodable {
+struct KeywordSearchResponseModel: Decodable {
     let response: Response
 }
 
@@ -59,5 +59,9 @@ struct Item: Decodable {
         case mapLevel = "mlevel"
         case modifiedTime = "modifiedtime"
         case telephoneNumber = "tel"
+    }
+    
+    func toDTO() -> BasicModel {
+        return BasicModel(address: address, primaryImage: primaryImage, telephoneNumber: telephoneNumber, title: title)
     }
 }
