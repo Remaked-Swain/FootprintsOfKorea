@@ -35,12 +35,12 @@ extension Bundle {
     }
     
     private func traverse() -> Result<APIKey, TraversalError> {
-        guard let fileURL = Self.main.url(forResource: "APIKey", withExtension: "plist") else {
+        guard let fileURL = Self.main.url(forResource: Endpoint.propertyListFileName, withExtension: "plist") else {
             return .failure(.fileNotFound)
         }
         
         guard let file = NSDictionary(contentsOf: fileURL),
-              let value = file.object(forKey: "KorService") as? String
+              let value = file.object(forKey: Endpoint.keyName) as? String
         else {
             return .failure(.keyNotFound)
         }
