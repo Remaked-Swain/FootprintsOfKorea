@@ -21,43 +21,71 @@ final class SearchKeywordViewController: UIViewController {
     }()
     
     // MARK: View Components
-    private lazy var label: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+    
+    private let searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.placeholder = "찾고 싶은 키워드를 입력해주세요"
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        return searchBar
+    }()
+    
+    private let resultTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(ResultTableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return tableView
     }()
     
     // MARK: RxSwift
     private var disposeBag = DisposeBag()
     
+    //MARK: ViewLifeCycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
-        hierarchy()
-        layout()
-        
-        searchKeywordViewModel.fetchData("강원")
-            .observe(on: MainScheduler.instance)
-            .subscribe { model in
-                self.label.text = model.first!.title
-            } onError: { error in
-                self.label.text = error.localizedDescription
-            }
-            .disposed(by: disposeBag)
+        searchBar.delegate = self
+        configureUI()
+        setConstraints()
+        bindViewModel()
     }
     
-    private func hierarchy() {
-        view.addSubview(label)
+    private func configureUI() {
+        view.addSubview(resultTableView)
+        view.addSubview(searchBar)
     }
     
-    private func layout() {
+    private func bindViewModel() {
+        searchKeywordViewModel.items.bind(
+            to: resultTableView.rx.items(
+                cellIdentifier: "Cell",
+                cellType: ResultTableViewCell.self
+            )
+        ) { (row,model,cell) in
+            cell.bindModel(model: model)
+            cell.heightAnchor.constraint(equalToConstant: 120).isActive = true
+        }.disposed(by: disposeBag)
+    }
+    
+    private func setConstraints() {
         NSLayoutConstraint.activate([
-            label.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            label.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor),
-            label.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            label.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            
+            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            
+            resultTableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 5),
+            resultTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 0),
+            resultTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
+            resultTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0),
         ])
+    }
+}
+
+extension SearchKeywordViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let searchText = searchBar.text else { return }
+        searchKeywordViewModel.searchKeyword(searchText)
     }
 }
