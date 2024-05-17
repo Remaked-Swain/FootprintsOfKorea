@@ -1,16 +1,16 @@
 import Foundation
 
 struct KeywordSearchResponseModel: Decodable {
-    let response: Response
+    let response: Response?
 }
 
 struct Response: Decodable {
-    let header: Header
-    let body: Body
+    let header: Header?
+    let body: Body?
 }
 
 struct Header: Decodable {
-    let resultCode, resultMessage: String
+    let resultCode, resultMessage: String?
     
     enum CodingKeys: String, CodingKey {
         case resultCode
@@ -19,8 +19,8 @@ struct Header: Decodable {
 }
 
 struct Body: Decodable {
-    let items: Items
-    let numberOfRows, pageNumber, totalCount: Int
+    let items: Items?
+    let numberOfRows, pageNumber, totalCount: Int?
     
     enum CodingKeys: String, CodingKey {
         case items, totalCount
@@ -30,16 +30,16 @@ struct Body: Decodable {
 }
 
 struct Items: Decodable {
-    let item: [Item]
+    let item: [Item]?
 }
 
 struct Item: Decodable {
-    let address, detailAddress, areacode, booktour: String
-    let categoryFirst, categorySecond, categoryThird, contentId: String
-    let contentTypeId, createdTime: String
-    let primaryImage, secondaryImage: String
-    let copyrightDivisionCode, coordinateX, coordinateY, mapLevel: String
-    let modifiedTime, sigungucode, telephoneNumber, title: String
+    let address, detailAddress, areacode, booktour: String?
+    let categoryFirst, categorySecond, categoryThird, contentId: String?
+    let contentTypeId, createdTime: String?
+    let primaryImage, secondaryImage: String?
+    let copyrightDivisionCode, coordinateX, coordinateY, mapLevel: String?
+    let modifiedTime, sigungucode, telephoneNumber, title: String?
 
     enum CodingKeys: String, CodingKey {
         case areacode, booktour, title, sigungucode
@@ -62,6 +62,6 @@ struct Item: Decodable {
     }
     
     func toDTO() -> BasicModel {
-        return BasicModel(address: address, primaryImage: primaryImage, telephoneNumber: telephoneNumber, title: title)
+        return BasicModel(address: address ?? "" , primaryImage: primaryImage ?? "" , telephoneNumber: telephoneNumber ?? "", title: title ?? "")
     }
 }

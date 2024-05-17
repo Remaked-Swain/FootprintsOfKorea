@@ -25,7 +25,9 @@ final class DefaultKeywordSearchRepository {
     }
     
     private func mapToBasicModel(with entity: KeywordSearchResponseModel) -> [BasicModel] {
-        return entity.response.body.items.item.map { $0.toDTO() }
+        
+        guard let entity = entity.response?.body?.items?.item else { return [] }
+        return entity.map { $0.toDTO() }
     }
 }
 
