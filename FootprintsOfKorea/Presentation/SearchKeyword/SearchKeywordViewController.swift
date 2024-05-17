@@ -15,8 +15,9 @@ final class SearchKeywordViewController: UIViewController {
         let sessionManager = DefaultNetworkSessionManager()
         let networkService = DefaultNetworkService(networkSessionManager: sessionManager)
         let repository = DefaultKeywordSearchRepository(networkService: networkService)
-        let usecase = DefaultSearchByKeyworkUseCase(repository: repository)
-        let viewModel = DefaultSearchKeywordViewModel(searchByKeywordUseCase: usecase)
+        let searchKeywordUseCase = DefaultSearchByKeyworkUseCase(repository: repository)
+        let fetchImageUseCase = DefaultFetchImageUseCase(repository: repository)
+        let viewModel = DefaultSearchKeywordViewModel(searchByKeywordUseCase: searchKeywordUseCase, fetchImageUseCase: fetchImageUseCase)
         return viewModel
     }()
     
@@ -62,8 +63,8 @@ final class SearchKeywordViewController: UIViewController {
                 cellIdentifier: "Cell",
                 cellType: ResultTableViewCell.self
             )
-        ) { (row,model,cell) in
-            cell.bindModel(model: model)
+        ) { [weak self] (row, model, cell) in
+            cell.bindModel(delegate: self?.searchKeywordViewModel, model: model)
             cell.heightAnchor.constraint(equalToConstant: 120).isActive = true
         }.disposed(by: disposeBag)
     }

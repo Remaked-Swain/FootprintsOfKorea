@@ -2,6 +2,7 @@ import Foundation
 
 protocol KeywordSearchRepository {
     func search(by keyword: String) async throws -> [BasicModel]
+    func fetchImage(url: String) async throws -> Data
 }
 
 enum KeywordSearchRepositoryError: Error, CustomDebugStringConvertible {
@@ -43,5 +44,11 @@ extension DefaultKeywordSearchRepository: KeywordSearchRepository {
         } catch let error {
             throw error
         }
+    }
+    
+    func fetchImage(url: String) async throws -> Data {
+        guard let url = URL(string: url) else { throw KeywordSearchRepositoryError.fetchFailed }
+        let data = try await networkService.data(url: url)
+        return data
     }
 }

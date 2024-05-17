@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		041470272BF754F800ACC566 /* FetchImageUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041470262BF754F800ACC566 /* FetchImageUseCase.swift */; };
 		041554942BF1E86B0040EA6D /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 041554932BF1E86B0040EA6D /* RxCocoa */; };
 		041554962BF1E86B0040EA6D /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 041554952BF1E86B0040EA6D /* RxSwift */; };
 		041554982BF1EA6B0040EA6D /* KeywordSearchResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041554972BF1EA6B0040EA6D /* KeywordSearchResponseModel.swift */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		041470262BF754F800ACC566 /* FetchImageUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchImageUseCase.swift; sourceTree = "<group>"; };
 		041554972BF1EA6B0040EA6D /* KeywordSearchResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordSearchResponseModel.swift; sourceTree = "<group>"; };
 		0445A0C12BE8EA50006DC373 /* SearchByKeywordUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchByKeywordUseCase.swift; sourceTree = "<group>"; };
 		04A488032BF33C590007D256 /* Endpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				0445A0C12BE8EA50006DC373 /* SearchByKeywordUseCase.swift */,
+				041470262BF754F800ACC566 /* FetchImageUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -313,6 +316,7 @@
 				04B9941D2BE7D18B00E9D68D /* JSONDecoder.swift in Sources */,
 				C3A409862BF7300400B1D2B2 /* UIImage.swift in Sources */,
 				041554982BF1EA6B0040EA6D /* KeywordSearchResponseModel.swift in Sources */,
+				041470272BF754F800ACC566 /* FetchImageUseCase.swift in Sources */,
 				04B994152BE7CBF400E9D68D /* Bundle.swift in Sources */,
 				04B993F52BE79DE900E9D68D /* SceneDelegate.swift in Sources */,
 				04A488042BF33C590007D256 /* Endpoint.swift in Sources */,

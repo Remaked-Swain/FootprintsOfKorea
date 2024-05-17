@@ -6,17 +6,10 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 final class ResultTableViewCell: UITableViewCell {
-    private let searchKeywordViewModel: SearchKeywordViewModel = {
-        let sessionManager = DefaultNetworkSessionManager()
-        let networkService = DefaultNetworkService(networkSessionManager: sessionManager)
-        let repository = DefaultKeywordSearchRepository(networkService: networkService)
-        let usecase = DefaultSearchByKeyworkUseCase(repository: repository)
-        let viewModel = DefaultSearchKeywordViewModel(searchByKeywordUseCase: usecase)
-        return viewModel
-    }()
-        
     private let primaryImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -55,21 +48,29 @@ final class ResultTableViewCell: UITableViewCell {
 
         return stackView
     }()
+    
+    private var disposeBag = DisposeBag()
         
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureLayout()
         setConstraints()
     }
+
+    func bindModel(delegate: SearchKeywordViewModel?, model: BasicModel) {
+        let urlString = model.primaryImage
+        delegate?.fetchImage(from: urlString)
+            .subscribe { [weak self] data in
+                self?.primaryImageView.image = UIImage(data: data)
+            } onError: { [weak self] error in
+                self?.primaryImageView.image = UIImage(systemName: "questionmark")
+            }
+            .disposed(by: disposeBag)
         
-    func bindModel(model: BasicModel) {
-        if let url = URL(string: model.primaryImage) {
-            primaryImageView.setImage(from: url)
-        }
         titleLabel.text = model.title
         addressLabel.text = model.address
         telePhoneNumberLabel.text = model.telephoneNumber
-       }
+    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

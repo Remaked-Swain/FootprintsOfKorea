@@ -9,6 +9,7 @@ import Foundation
 
 protocol NetworkService {
     func request<T: Decodable>(query: Requestable, for type: T.Type) async throws -> T
+    func data(url: URL) async throws -> Data
 }
 
 fileprivate enum NetworkServiceError: Error {
@@ -71,6 +72,16 @@ extension DefaultNetworkService: NetworkService {
             try handleResponse(response)
             let decodedData = try decode(for: type, with: data)
             return decodedData
+        } catch let error {
+            throw resolveError(error: error)
+        }
+    }
+    
+    func data(url: URL) async throws -> Data {
+        do {
+            let (data, response) = try await networkSessionManager.data(from: url)
+            try handleResponse(response)
+            return data
         } catch let error {
             throw resolveError(error: error)
         }

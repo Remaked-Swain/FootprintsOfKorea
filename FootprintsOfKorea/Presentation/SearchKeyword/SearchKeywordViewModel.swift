@@ -10,17 +10,23 @@ import RxSwift
 
 protocol SearchKeywordViewModel {
     func searchKeyword(_ keyword: String)
+    func fetchImage(from url: String) -> Observable<Data>
     var items: PublishSubject<[BasicModel]> { get }
 }
 
 final class DefaultSearchKeywordViewModel {
     private let searchByKeywordUseCase: SearchByKeywordUseCase
+    private let fetchImageUseCase: FetchImageUseCase
     var items = PublishSubject<[BasicModel]>()
     
     var disposeBag = DisposeBag()
     
-    init(searchByKeywordUseCase: SearchByKeywordUseCase) {
+    init(
+        searchByKeywordUseCase: SearchByKeywordUseCase,
+        fetchImageUseCase: FetchImageUseCase
+    ) {
         self.searchByKeywordUseCase = searchByKeywordUseCase
+        self.fetchImageUseCase = fetchImageUseCase
     }
 }
 
@@ -34,5 +40,10 @@ extension DefaultSearchKeywordViewModel: SearchKeywordViewModel {
             } onError: { error in
                 print(error)
             }.disposed(by: disposeBag)
+    }
+    
+    func fetchImage(from url: String) -> Observable<Data> {
+        return fetchImageUseCase.fetchImage(url)
+            .observe(on: MainScheduler.asyncInstance)
     }
 }
