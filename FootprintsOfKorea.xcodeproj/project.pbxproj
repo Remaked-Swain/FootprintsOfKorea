@@ -28,7 +28,6 @@
 		04B9941D2BE7D18B00E9D68D /* JSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B9941C2BE7D18B00E9D68D /* JSONDecoder.swift */; };
 		C31D58062BF3449700BFE3A3 /* SearchKeywordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31D58052BF3449700BFE3A3 /* SearchKeywordViewModel.swift */; };
 		C3A409832BF582D700B1D2B2 /* ResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A409822BF582D700B1D2B2 /* ResultTableViewCell.swift */; };
-		C3A409862BF7300400B1D2B2 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A409852BF7300400B1D2B2 /* UIImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,7 +53,6 @@
 		04B9941C2BE7D18B00E9D68D /* JSONDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecoder.swift; sourceTree = "<group>"; };
 		C31D58052BF3449700BFE3A3 /* SearchKeywordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchKeywordViewModel.swift; sourceTree = "<group>"; };
 		C3A409822BF582D700B1D2B2 /* ResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultTableViewCell.swift; sourceTree = "<group>"; };
-		C3A409852BF7300400B1D2B2 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,7 +91,6 @@
 				C31D58052BF3449700BFE3A3 /* SearchKeywordViewModel.swift */,
 				04B993F62BE79DE900E9D68D /* SearchKeywordViewController.swift */,
 				C3A409822BF582D700B1D2B2 /* ResultTableViewCell.swift */,
-				C3A409842BF72FE800B1D2B2 /* Extensions */,
 			);
 			path = SearchKeyword;
 			sourceTree = "<group>";
@@ -219,14 +216,6 @@
 			path = NetworkSessionManager;
 			sourceTree = "<group>";
 		};
-		C3A409842BF72FE800B1D2B2 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				C3A409852BF7300400B1D2B2 /* UIImage.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -314,7 +303,6 @@
 				04B994132BE7CBB000E9D68D /* URLSession.swift in Sources */,
 				04B994192BE7CE9200E9D68D /* NetworkSessionManager.swift in Sources */,
 				04B9941D2BE7D18B00E9D68D /* JSONDecoder.swift in Sources */,
-				C3A409862BF7300400B1D2B2 /* UIImage.swift in Sources */,
 				041554982BF1EA6B0040EA6D /* KeywordSearchResponseModel.swift in Sources */,
 				041470272BF754F800ACC566 /* FetchImageUseCase.swift in Sources */,
 				04B994152BE7CBF400E9D68D /* Bundle.swift in Sources */,

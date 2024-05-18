@@ -6,8 +6,6 @@
 //
 
 import UIKit
-import RxSwift
-import RxCocoa
 
 final class ResultTableViewCell: UITableViewCell {
     private let primaryImageView: UIImageView = {
@@ -48,8 +46,6 @@ final class ResultTableViewCell: UITableViewCell {
 
         return stackView
     }()
-    
-    private var disposeBag = DisposeBag()
         
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -57,19 +53,11 @@ final class ResultTableViewCell: UITableViewCell {
         setConstraints()
     }
 
-    func bindModel(delegate: SearchKeywordViewModel?, model: BasicModel) {
-        let urlString = model.primaryImage
-        delegate?.fetchImage(from: urlString)
-            .subscribe { [weak self] data in
-                self?.primaryImageView.image = UIImage(data: data)
-            } onError: { [weak self] error in
-                self?.primaryImageView.image = UIImage(systemName: "questionmark")
-            }
-            .disposed(by: disposeBag)
-        
-        titleLabel.text = model.title
-        addressLabel.text = model.address
-        telePhoneNumberLabel.text = model.telephoneNumber
+    func bindModel(item: SearchKeywordViewController.CellItem?) {
+        titleLabel.text = item?.title
+        addressLabel.text = item?.address
+        telePhoneNumberLabel.text = item?.telephoneNumber
+        primaryImageView.image = item?.primaryImage
     }
     
     required init?(coder: NSCoder) {

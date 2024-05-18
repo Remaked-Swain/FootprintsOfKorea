@@ -10,6 +10,14 @@ import RxSwift
 import RxCocoa
 
 final class SearchKeywordViewController: UIViewController {
+    // MARK: Nested Types
+    struct CellItem {
+        let title: String
+        let telephoneNumber: String
+        let address: String
+        let primaryImage: UIImage?
+    }
+    
     // MARK: Dependencies
     private let searchKeywordViewModel: SearchKeywordViewModel = {
         let sessionManager = DefaultNetworkSessionManager()
@@ -22,7 +30,6 @@ final class SearchKeywordViewController: UIViewController {
     }()
     
     // MARK: View Components
-    
     private let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.placeholder = "찾고 싶은 키워드를 입력해주세요"
@@ -42,7 +49,6 @@ final class SearchKeywordViewController: UIViewController {
     private var disposeBag = DisposeBag()
     
     //MARK: ViewLifeCycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -64,7 +70,18 @@ final class SearchKeywordViewController: UIViewController {
                 cellType: ResultTableViewCell.self
             )
         ) { [weak self] (row, model, cell) in
-            cell.bindModel(delegate: self?.searchKeywordViewModel, model: model)
+            guard let self = self else { return }
+            
+            searchKeywordViewModel.fetchImage(from: model.primaryImage)
+                    .subscribe { data in
+                        let item = CellItem(title: model.title, telephoneNumber: model.telephoneNumber, address: model.address, primaryImage: UIImage(data: data))
+                        cell.bindModel(item: item)
+                    } onError: { error in
+                        let item = CellItem(title: model.title, telephoneNumber: model.telephoneNumber, address: model.address, primaryImage: UIImage(systemName: "questionmark"))
+                        cell.bindModel(item: item)
+                    }
+                    .disposed(by: disposeBag)
+            
             cell.heightAnchor.constraint(equalToConstant: 120).isActive = true
         }.disposed(by: disposeBag)
     }
