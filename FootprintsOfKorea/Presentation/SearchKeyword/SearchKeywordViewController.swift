@@ -19,15 +19,7 @@ final class SearchKeywordViewController: UIViewController {
     }
     
     // MARK: Dependencies
-    private let searchKeywordViewModel: SearchKeywordViewModel = {
-        let sessionManager = DefaultNetworkSessionManager()
-        let networkService = DefaultNetworkService(networkSessionManager: sessionManager)
-        let repository = DefaultKeywordSearchRepository(networkService: networkService)
-        let searchKeywordUseCase = DefaultSearchByKeyworkUseCase(repository: repository)
-        let fetchImageUseCase = DefaultFetchImageUseCase(repository: repository)
-        let viewModel = DefaultSearchKeywordViewModel(searchByKeywordUseCase: searchKeywordUseCase, fetchImageUseCase: fetchImageUseCase)
-        return viewModel
-    }()
+    private let searchKeywordViewModel: SearchKeywordViewModel
     
     // MARK: View Components
     private let searchBar: UISearchBar = {
@@ -47,6 +39,15 @@ final class SearchKeywordViewController: UIViewController {
     
     // MARK: RxSwift
     private var disposeBag = DisposeBag()
+    
+    init(_ container: DependencyContainer) {
+        self.searchKeywordViewModel = container.resolve(for: DefaultSearchKeywordViewModel.self)
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("시2발좆댐")
+    }
     
     //MARK: ViewLifeCycle
     override func viewDidLoad() {

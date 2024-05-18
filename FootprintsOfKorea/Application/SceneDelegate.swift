@@ -10,6 +10,27 @@ import UIKit
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    private lazy var container: DependencyContainer = {
+        let container = DefaultDependencyContainer()
+        container.register(key: DefaultNetworkSessionManager.self, value: DefaultNetworkSessionManager())
+        container.register(for: DefaultNetworkService.self) { resolver in
+            DefaultNetworkService(networkSessionManager: resolver.resolve(for: DefaultNetworkSessionManager.self))
+        }
+        container.register(for: DefaultKeywordSearchRepository.self) { resolver in
+            DefaultKeywordSearchRepository(networkService: resolver.resolve(for: DefaultNetworkService.self))
+        }
+        container.register(for: DefaultSearchByKeyworkUseCase.self) { resolver in
+            DefaultSearchByKeyworkUseCase(repository: resolver.resolve(for: DefaultKeywordSearchRepository.self))
+        }
+        container.register(for: DefaultFetchImageUseCase.self) { resolver in
+            DefaultFetchImageUseCase(repository: resolver.resolve(for: DefaultKeywordSearchRepository.self))
+        }
+        container.register(for: DefaultSearchKeywordViewModel.self) { resolver in
+            DefaultSearchKeywordViewModel(searchByKeywordUseCase: resolver.resolve(for: DefaultSearchByKeyworkUseCase.self),
+                                          fetchImageUseCase: resolver.resolve(for: DefaultFetchImageUseCase.self))
+        }
+        return container
+    }()
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -18,7 +39,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = SearchKeywordViewController()
+        window?.rootViewController = SearchKeywordViewController(container)
         window?.makeKeyAndVisible()
     }
 
